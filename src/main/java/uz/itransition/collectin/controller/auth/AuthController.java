@@ -1,0 +1,39 @@
+package uz.itransition.collectin.controller.auth;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import uz.itransition.collectin.payload.request.auth.LoginRequest;
+import uz.itransition.collectin.payload.request.auth.RegisterRequest;
+import uz.itransition.collectin.service.auth.AuthService;
+
+import javax.validation.Valid;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/v1/auth/")
+public class AuthController {
+
+    private final AuthService authService;
+
+    @PostMapping("login")
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest requestDto) {
+        return ResponseEntity.ok(authService.login(requestDto));
+    }
+
+    @PostMapping("register")
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest requestDto) {
+        return ResponseEntity.ok(authService.register(requestDto));
+    }
+
+//    @PostMapping(value = "access/token-from/refresh",
+//            consumes = {MediaType.TEXT_PLAIN_VALUE},
+//            produces = {MediaType.APPLICATION_JSON_VALUE}
+//    )
+//    public ResponseEntity<?> getAccessToken(@RequestBody String refreshToken) {
+//        return ResponseEntity.ok(authService.getAccessToken(refreshToken));
+//    }
+
+
+}
